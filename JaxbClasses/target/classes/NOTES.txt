@@ -1,0 +1,2 @@
+Here, JAXB classes will be generated automatically during Maven--> updateProject, without
+using any xjc command at command prompt

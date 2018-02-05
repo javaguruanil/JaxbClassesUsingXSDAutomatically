@@ -1,0 +1,365 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
+   <xs:element name="orderCapture">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:element type="xs:long" name="bagId" minOccurs="0" />
+            <xs:element type="xs:string" name="bagGuid" />
+            <xs:element type="shipment" name="shipments" maxOccurs="unbounded" minOccurs="0" />
+            <xs:element name="items" maxOccurs="unbounded" minOccurs="0" type="item" />
+            <xs:element type="shipping" name="shipping" />
+            <xs:element type="loyalty" name="loyalty" />
+            <xs:element type="user" name="user" />
+            <xs:element type="xs:string" name="promoCode" />
+            <xs:element type="context" name="context" />
+            <xs:element type="taxExemptInfo" name="taxExemptInfo" />
+            <xs:element type="paymentDetails" name="paymentDetails" />
+            <xs:element type="registry" name="registry" />
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   <xs:complexType name="shipment">
+      <xs:sequence>
+         <xs:element type="xs:long" name="shipmentId" />
+         <xs:element type="xs:double" name="addressFee" />
+         <xs:element name="deliveryOptions" maxOccurs="unbounded" minOccurs="0" type="deliveryOption" />
+         <xs:element type="price" name="deliveryTaxRate" />
+         <xs:element type="xs:int" name="dropshipVendorNumber" />
+         <xs:element type="price" name="merchandiseTotal" />
+         <xs:element type="shipmentPickupDetails" name="shipmentPickupDetails" />
+         <xs:element type="xs:string" name="pickupStoreNumber" />
+         <xs:element type="registry" name="registry" />
+         <xs:element name="errors" maxOccurs="unbounded" minOccurs="0" type="businessMessages" />
+         <xs:element type="groupDeliveryOptionDO" maxOccurs="unbounded" minOccurs="0" name="groupDeiveryOptions" />
+         <xs:element name="items" maxOccurs="unbounded" minOccurs="0" type="item" />
+         <xs:element type="contact" name="contact" />
+         <xs:element type="contact" name="pickupContact" />
+         <xs:element type="shipmentFee" name="shipmentFee" />
+         <xs:element type="shipmentTax" name="shipmentTax" />
+         <xs:element type="xs:string" name="shipType" />
+         <xs:element type="xs:string" name="selectedShippingMethod" />
+         <xs:element type="giftMessage" name="giftMessage" />
+         <xs:element type="giftOptions" name="giftOptions" />
+         <xs:element type="xs:double" name="giftWrapFee" />
+         <xs:element type="xs:string" name="giftWrapType" />
+         <xs:element type="xs:string" name="shipmentRef" />
+         <xs:element name="errorCodes" maxOccurs="unbounded" minOccurs="0" type="xs:string" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="deliveryOption">
+      <xs:sequence>
+         <xs:element type="xs:boolean" name="availableFlag" />
+         <xs:element type="xs:string" name="description" />
+         <xs:element type="xs:int" name="minEstimatedDeliveryDay" minOccurs="0" />
+         <xs:element type="xs:int" name="maxEstimatedDeliveryDay" minOccurs="0" />
+         <xs:element type="xs:string" name="minEstimatedDeliveryDate" />
+         <xs:element type="xs:string" name="maxEstimatedDeliveryDate" />
+         <xs:element type="xs:double" name="price" minOccurs="0" />
+         <xs:element type="xs:int" name="sequenceNumber" minOccurs="0" />
+         <xs:element type="xs:string" name="code" />
+         <xs:element type="xs:double" name="upChargeFee" minOccurs="0" />
+         <xs:element type="xs:string" name="estimatedDelivery" />
+         <xs:element type="xs:string" name="deliveryDate" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="price">
+      <xs:sequence>
+         <xs:element type="xs:double" name="amount" />
+         <xs:element type="xs:string" name="currencyCode" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="shipmentPickupDetails">
+      <xs:sequence>
+         <xs:element type="contact" name="pickupContact" />
+         <xs:element type="xs:string" name="pickupStatus" />
+         <xs:element type="xs:string" name="pickupStoreNumber" />
+         <xs:element type="xs:string" name="pickupTransactionNumber" />
+         <xs:element type="xs:string" name="pickupTerminalNumber" />
+         <xs:element type="xs:string" name="pickupTransactionDate" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="contact">
+      <xs:sequence>
+         <xs:element type="xs:string" name="firstName" />
+         <xs:element type="xs:string" name="lastName" />
+         <xs:element type="xs:string" name="dayPhone" />
+         <xs:element type="xs:string" name="homePhone" />
+         <xs:element type="xs:string" name="emailAddress" />
+         <xs:element type="xs:string" name="alternatePhone" />
+         <xs:element type="xs:boolean" name="smsToAlternatePhoneFlag" />
+         <xs:element type="xs:string" name="attn" />
+         <xs:element type="xs:string" name="suffix" />
+         <xs:element type="address" name="address" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="address">
+      <xs:sequence>
+         <xs:element type="xs:string" name="addressLine1" />
+         <xs:element type="xs:string" name="addressLine2" />
+         <xs:element type="xs:string" name="city" />
+         <xs:element type="xs:string" name="state" />
+         <xs:element type="xs:string" name="country" />
+         <xs:element type="xs:string" name="postalCode" />
+         <xs:element type="xs:boolean" name="validatedFlag" />
+         <xs:element type="xs:boolean" name="alreadyValidated" />
+         <xs:element type="xs:int" name="addressSequenceNumber" />
+         <xs:element type="xs:boolean" name="useSuggestedAddress" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="registry">
+      <xs:sequence>
+         <xs:element type="xs:string" name="id" />
+         <xs:element type="xs:string" name="barCode" />
+         <xs:element type="xs:string" name="completionBarCode" />
+         <xs:element type="xs:date" name="eventDate" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="businessMessages">
+      <xs:sequence>
+         <xs:element type="xs:long" name="code" />
+         <xs:element type="xs:string" name="developerMessage" />
+         <xs:element type="xs:string" name="message" />
+         <xs:element type="messageType" name="type" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="messageType">
+      <xs:sequence />
+   </xs:complexType>
+   <xs:complexType name="groupDeliveryOptionDO">
+      <xs:sequence>
+         <xs:element name="shippingMethods" maxOccurs="unbounded" minOccurs="0" type="ShippingMethodDO" />
+         <xs:element type="ShippingMethodEligibleDO" name="shippingMethodEligibleItems" />
+         <xs:element type="xs:string" name="userSeletedShippingMethod" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ShippingMethodEligibleDO">
+      <xs:sequence>
+         <xs:element name="items" maxOccurs="unbounded" minOccurs="0" type="groupDeliveryItemDO" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="ShippingMethodDO">
+      <xs:sequence>
+         <xs:element type="xs:string" name="code" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="groupDeliveryItemDO">
+      <xs:sequence>
+         <xs:element type="xs:long" name="upc" />
+         <xs:element type="xs:int" name="sequenceNumber" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="item">
+      <xs:sequence>
+         <xs:element type="xs:string" name="description" />
+         <xs:element type="xs:long" name="productId" />
+         <xs:element type="xs:long" name="upcNumber" />
+         <xs:element type="xs:int" name="quantity" />
+         <xs:element type="xs:double" name="price" />
+         <xs:element type="xs:double" name="changedPrice" />
+         <xs:element type="xs:double" name="tax" />
+         <xs:element type="xs:string" name="expectedShipDate" />
+         <xs:element type="xs:double" name="itemTotal" />
+         <xs:element type="xs:int" name="adjustedQuantity" />
+         <xs:element type="xs:double" name="surchargeFee" />
+         <xs:element type="xs:double" name="personalizationFee" />
+         <xs:element type="xs:boolean" name="pickupFromStore" />
+         <xs:element type="xs:boolean" name="bigTicketItem" />
+         <xs:element type="xs:string" name="itemRef" />
+         <xs:element type="xs:int" name="priceTypeId" />
+         <xs:element type="xs:string" name="itemOrigin" />
+         <xs:element type="xs:string" name="mediaCode" />
+         <xs:element type="xs:int" name="itemSequenceNumber" />
+         <xs:element type="xs:int" name="maxQuantity" />
+         <xs:element name="errors" maxOccurs="unbounded" minOccurs="0" type="businessMessages" />
+         <xs:element name="itemPromotions" maxOccurs="unbounded" minOccurs="0" type="promotionResult" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="promotionResult">
+      <xs:sequence>
+         <xs:element type="xs:double" name="adjustedCost" />
+         <xs:element type="xs:double" name="amountDiscounted" />
+         <xs:element type="xs:string" name="code" />
+         <xs:element type="promotionError" name="error" />
+         <xs:element type="xs:long" name="id" />
+         <xs:element type="xs:string" name="operationDescription" />
+         <xs:element type="xs:double" name="originalCost" />
+         <xs:element type="promotionScope" name="scope" />
+         <xs:element type="promotionTarget" name="target" />
+         <xs:element type="xs:string" name="type" />
+         <xs:element type="xs:int" name="itemSequenceNumber" />
+         <xs:element type="xs:date" name="expirationDate" />
+         <xs:element type="xs:string" name="shortDescription" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="promotionError">
+      <xs:sequence />
+   </xs:complexType>
+   <xs:complexType name="promotionScope">
+      <xs:sequence />
+   </xs:complexType>
+   <xs:complexType name="promotionTarget">
+      <xs:sequence />
+   </xs:complexType>
+   <xs:complexType name="shipmentFee">
+      <xs:sequence>
+         <xs:element type="xs:double" name="deliveryBaseFee" />
+         <xs:element type="xs:double" name="deliveryUpchargeFee" />
+         <xs:element type="xs:double" name="surchargeFee" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="shipmentTax">
+      <xs:sequence>
+         <xs:element type="xs:double" name="deliveryFeeTax" />
+         <xs:element type="xs:double" name="giftWrapTax" />
+         <xs:element type="xs:double" name="merchandiseTax" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="giftMessage">
+      <xs:sequence>
+         <xs:element type="xs:string" name="line1" />
+         <xs:element type="xs:string" name="line2" />
+         <xs:element type="xs:string" name="line3" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="giftOptions">
+      <xs:sequence>
+         <xs:element type="xs:string" name="giftMessage1" />
+         <xs:element type="xs:string" name="giftMessage2" />
+         <xs:element type="xs:boolean" name="giftMessageSupported" />
+         <xs:element type="xs:int" name="giftOptionID" />
+         <xs:element type="xs:boolean" name="giftWrappable" />
+         <xs:element type="xs:boolean" name="includeGiftReceipt" />
+         <xs:element type="xs:string" name="senderName" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="shipping">
+      <xs:sequence>
+         <xs:element type="bopsShipping" name="bopsShipping" />
+         <xs:element type="xs:string" name="shipType" />
+         <xs:element type="xs:double" name="addressFee" />
+         <xs:element type="xs:string" name="selectedShippingOption" />
+         <xs:element type="giftOption" name="giftWrapOptionsRQ" />
+         <xs:element type="contact" name="shippingContact" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="bopsShipping">
+      <xs:sequence>
+         <xs:element type="xs:boolean" name="pickupInStore" />
+         <xs:element type="xs:int" name="storeLocationNumber" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="giftOption">
+      <xs:sequence>
+         <xs:element type="xs:boolean" name="includeGiftReceipt" />
+         <xs:element type="giftMessage" name="giftMessageRQ" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="loyalty">
+      <xs:sequence>
+         <xs:element type="xs:string" name="loyaltyId" />
+         <xs:element type="xs:string" name="plentiId" />
+         <xs:element type="xs:string" name="loyaltyType" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="user">
+      <xs:sequence>
+         <xs:element type="xs:long" name="userID" />
+         <xs:element type="xs:string" name="userGUID" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="context">
+      <xs:sequence>
+         <xs:element type="xs:string" name="channel" />
+         <xs:element type="xs:string" name="clientId" />
+         <xs:element type="xs:string" name="subClientId" />
+         <xs:element type="xs:string" name="token" />
+         <xs:element type="xs:int" name="type" />
+         <xs:element type="xs:string" name="flowName" />
+         <xs:element type="xs:string" name="deviceInfo" />
+         <xs:element type="xs:string" name="ipAddress" />
+         <xs:element type="xs:string" name="itemOrigin" />
+         <xs:element type="xs:string" name="associateId" />
+         <xs:element type="xs:string" name="associateDivNo" />
+         <xs:element type="xs:string" name="storeLocationNumber" />
+         <xs:element type="xs:string" name="sourceApp" />
+         <xs:element type="xs:int" name="referringId" />
+         <xs:element type="xs:long" name="sellLocation" />
+         <xs:element type="xs:int" name="storeNumber" />
+         <xs:element type="xs:string" name="addedByApp" />
+         <xs:element type="xs:long" name="scanStoreLocationNumber" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="paymentDetails">
+      <xs:sequence>
+         <xs:element type="contact" name="billingContact" />
+         <xs:element type="creditCard" name="creditCard" />
+         <xs:element type="xs:double" name="creditCardAmountCharged" />
+         <xs:element name="universalPaymentBlock" maxOccurs="unbounded" minOccurs="0" type="upbCreditCard" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="creditCard">
+      <xs:sequence>
+         <xs:element type="xs:string" name="cardNickName" />
+         <xs:element type="xs:long" name="creditCardNumber" />
+         <xs:element type="xs:string" name="creditCardType" />
+         <xs:element type="xs:int" name="cvv" />
+         <xs:element type="xs:boolean" name="primary" />
+         <xs:element type="contact" name="contact" />
+         <xs:element type="xs:int" name="expirationMonth" />
+         <xs:element type="xs:int" name="expirationYear" />
+         <xs:element type="xs:double" name="amountCharged" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="upbCreditCard">
+      <xs:sequence>
+         <xs:element type="publicData" name="publicData" />
+         <xs:element type="xs:string" name="privateData" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="publicData">
+      <xs:sequence>
+         <xs:element type="xs:string" name="version" />
+         <xs:element type="xs:string" name="result" />
+         <xs:element type="xs:string" name="authAction" />
+         <xs:element type="xs:string" name="tenderType" />
+         <xs:element type="xs:string" name="cardIssuer" />
+         <xs:element type="xs:string" name="approvalCode" />
+         <xs:element type="xs:double" name="amount" />
+         <xs:element type="originInfo" name="originInfo" />
+         <xs:element type="xs:string" name="acctFormat" />
+         <xs:element type="xs:string" name="acctNbr" />
+         <xs:element type="aesInfo" name="aesInfo" />
+         <xs:element type="xs:string" name="authExpirationDate" />
+         <xs:element type="serviceData" name="serviceDataList" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="originInfo">
+      <xs:sequence>
+         <xs:element type="xs:int" name="division" />
+         <xs:element type="xs:int" name="storeNbr" />
+         <xs:element type="xs:string" name="origTransDate" />
+         <xs:element type="xs:string" name="origTrans" />
+         <xs:element type="xs:int" name="uniqueId" />
+         <xs:element type="xs:int" name="tranNbr" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="aesInfo">
+      <xs:sequence>
+         <xs:element type="xs:string" name="aesDivision" />
+         <xs:element type="xs:int" name="aesStoreNbr" />
+         <xs:element type="xs:int" name="aesKeyVersion" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="serviceData">
+      <xs:sequence>
+         <xs:element type="xs:string" name="value" />
+         <xs:element type="xs:string" name="id" />
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="taxExemptInfo">
+      <xs:sequence>
+         <xs:element type="xs:string" name="taxExemptId" />
+         <xs:element type="xs:string" name="taxExemptReasonCode" />
+         <xs:element type="xs:string" name="taxPayerId" />
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>
